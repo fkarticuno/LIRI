@@ -63,10 +63,18 @@ inquirer
                 }
             ]).then (function(inquirerResponse) { 
                 console.log("Looking for",inquirerResponse.SearchBandsInTown,"Bands in town...")
-                axios.get("http://www.bandsintown.com/event/13722599?app_id=foo&artist=Skrillex&came_from=67").then(
-                    function(response) {
-                        console.log("The band's info is: " + JSON.stringify(response.data));
+                // axios.get("http://www.bandsintown.com/event/13722599?app_id=foo&artist=Skrillex&came_from=67").then(
+                //     function(response) {
+                //         console.log("The band's info is: " + JSON.stringify(response.data));
+                axios.get("https://rest.bandsintown.com/artists"+inquirerResponse.SearchBandsInTown).then (
+                    function(response,err) {
+                        if ( err ) {
+                            console.log('Error occurred: ' + err);
+                            return;
+                        }
+                        console.log(JSON.stringify(response.data));
                     }
+
                 );
             }
         )}
